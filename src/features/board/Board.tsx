@@ -19,18 +19,16 @@ export const Board = () => {
         {map.map((row, i) => {
           return (
             <Box key={i} display="flex">
-              {row.map((value, j) => {
-                return (
-                  <Cell
-                    key={`${i} ${j}`}
-                    isOpen={value !== fieldCharset[EMPTY_CHAR]}
-                    isFlagged={flags[`${i} ${j}`] !== undefined}
-                    row={i}
-                    col={j}
-                    value={value}
-                  />
-                );
-              })}
+              {row.map((value, j) => (
+                <Cell
+                  key={`${i} ${j}`}
+                  isOpen={value !== fieldCharset[EMPTY_CHAR]}
+                  isFlagged={flags[`${i} ${j}`] !== undefined}
+                  row={i}
+                  col={j}
+                  value={value}
+                />
+              ))}
             </Box>
           );
         })}
