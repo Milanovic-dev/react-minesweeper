@@ -66,6 +66,7 @@ export default function* watchAndHandleRequests(): any {
 }
 
 function* openCell(action: PayloadAction<CellPosition>) {
+  yield put(setError(""));
   const x = action.payload.x;
   const y = action.payload.y;
 

@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import webSocketSaga, { rootSaga } from "./sagas";
+import { rootSaga } from "./sagas";
 import boardReducer from "../features/board/boardSlice";
 
 const websocketMiddleware = createSagaMiddleware();

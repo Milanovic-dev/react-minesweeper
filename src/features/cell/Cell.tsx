@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { memo } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useAppDispatch } from "../../app/hooks";
 import { BOMB_CHAR, fieldCharset } from "../common/representation";
