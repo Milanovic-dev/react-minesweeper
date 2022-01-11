@@ -1,10 +1,13 @@
+import { Box } from "@mui/material";
 import React from "react";
+import { Board } from "./features/board/Board";
 
 function App() {
   return (
-    <div className="App">
+    <Box sx={{ m: 2 }}>
       <h1>React Minesweeper</h1>
-    </div>
+      <Board />
+    </Box>
   );
 }
 
