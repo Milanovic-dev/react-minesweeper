@@ -31,6 +31,7 @@ export const BoardHeader = () => {
     } else if (gameState === GameState.PLAYING) {
       reset();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameState]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
