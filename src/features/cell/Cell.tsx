@@ -1,18 +1,16 @@
 import React, { memo } from "react";
 import { Box, Typography, useTheme } from "@mui/material";
-import { useAppDispatch } from "../../app/hooks";
 import { BOMB_CHAR, fieldCharset } from "../common/representation";
 import { getValueColor } from "./helpers";
-import { addFlag, openCell } from "../board/boardSlice";
 import FlagIcon from "@mui/icons-material/Flag";
 import Brightness5Icon from "@mui/icons-material/Brightness5";
 
 export interface CellProps {
   isOpen: boolean;
   value: number;
-  row: number;
-  col: number;
   isFlagged: boolean;
+  onLeftClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onRightClick: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 export const CELL_WIDTH = 30;
@@ -33,8 +31,7 @@ const CellContent = ({ value }: { value: number }) => {
 };
 
 export const Cell = memo(
-  ({ row, col, value, isOpen, isFlagged }: CellProps) => {
-    const dispatch = useAppDispatch();
+  ({ value, isOpen, isFlagged, onLeftClick, onRightClick }: CellProps) => {
     const { palette } = useTheme();
 
     return (
@@ -50,10 +47,12 @@ export const Cell = memo(
           fontWeight: "bold",
           backgroundColor: isOpen ? palette.primary.main : "white",
         }}
-        onClick={() => !isFlagged && dispatch(openCell({ x: col, y: row }))}
+        onClick={(e) =>
+          !isFlagged && typeof onLeftClick === "function" && onLeftClick(e)
+        }
         onContextMenu={(e) => {
           e.preventDefault();
-          dispatch(addFlag({ x: row, y: col }));
+          typeof onRightClick === "function" && onRightClick(e);
         }}
       >
         {isFlagged ? (
