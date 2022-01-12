@@ -3,15 +3,12 @@ import { Box, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Cell } from "../cell/Cell";
 import { EMPTY_CHAR, fieldCharset } from "../common/representation";
-import { addFlag, GameState, openCell } from "./boardSlice";
+import { addFlag, openCell } from "./boardSlice";
 import { BoardHeader } from "./BoardHeader";
 
 export const Board = () => {
   const dispatch = useAppDispatch();
-  const { map, flags, error, gameState } = useAppSelector(
-    (state) => state.boardReducer
-  );
-  const gameEnded = gameState === GameState.WON || gameState === GameState.LOST;
+  const { map, flags, error } = useAppSelector((state) => state.boardReducer);
 
   return (
     <Box width="fit-content">
@@ -38,7 +35,6 @@ export const Board = () => {
           );
         })}
       </Box>
-      <Typography>{gameEnded && `You ${gameState}!`}</Typography>
       <Typography color="error">{error}</Typography>
     </Box>
   );
