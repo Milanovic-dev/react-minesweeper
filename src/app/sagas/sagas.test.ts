@@ -20,6 +20,7 @@ describe("Saga websocket communication", () => {
     }
 
     mockServer = new Server(fakeURL);
+
     createWebsocketConnection(fakeURL);
   });
 
