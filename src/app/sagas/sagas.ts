@@ -8,14 +8,14 @@ import {
   setError,
   setGameState,
   updateMap,
-} from "../features/board/boardSlice";
-import { transformStringMapToMatrix } from "../features/common/representation";
+} from "../../features/board/boardSlice";
+import { transformStringMapToMatrix } from "../../features/common/representation";
 
 export let ws: WebSocket;
 
-export function createWebsocketConnection() {
+export function createWebsocketConnection(url?: string) {
   return eventChannel((emitter) => {
-    const wsUrl = process.env.REACT_APP_WS_URL;
+    const wsUrl = url || process.env.REACT_APP_WS_URL;
 
     if (!wsUrl) {
       throw new Error("Websocket url is undefined");
@@ -65,16 +65,15 @@ export default function* watchAndHandleRequests(): any {
   }
 }
 
-function* openCell(action: PayloadAction<CellPosition>) {
+export function* openCell(action: PayloadAction<CellPosition>) {
   yield put(setError(""));
   const x = action.payload.x;
   const y = action.payload.y;
-
   ws.send(`open ${x} ${y}`);
   ws.send("map");
 }
 
-function* newLevel(action: PayloadAction<number>) {
+export function* newLevel(action: PayloadAction<number>) {
   ws.send(`new ${action.payload}`);
   ws.send("map");
   yield put(setGameState(GameState.NOT_PLAYING));
