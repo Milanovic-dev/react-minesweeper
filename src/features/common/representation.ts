@@ -26,6 +26,7 @@ export function transformStringMapToMatrix(
 
   for (let row of rows) {
     const cols = [];
+
     for (let char of row) {
       const number =
         char !== BOMB_CHAR && char !== EMPTY_CHAR

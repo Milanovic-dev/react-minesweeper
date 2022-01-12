@@ -13,16 +13,20 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
 import { startNewLevel, MapSize, GameState } from "./boardSlice";
 import { useStopwatch } from "react-timer-hook";
+import FlagIcon from "@mui/icons-material/Flag";
 
 export const BoardHeader = () => {
   const dispatch = useAppDispatch();
-  const { gameState } = useAppSelector((state) => state.boardReducer);
+  const { map, flags, gameState } = useAppSelector(
+    (state) => state.boardReducer
+  );
   const [selectedMapSize, setSelectedMapSize] = useState(MapSize.Beginner);
   const { seconds, minutes, reset, pause } = useStopwatch({
     autoStart: false,
   });
 
   const gameEnded = gameState === GameState.WON || gameState === GameState.LOST;
+  const flagCount = map.length - Object.keys(flags).length;
 
   useEffect(() => {
     if (gameState === GameState.NOT_PLAYING) {
@@ -94,6 +98,10 @@ export const BoardHeader = () => {
         <Typography>
           {minutes}:{seconds}
         </Typography>
+        <Box ml={2} display="flex">
+          <Typography>{flagCount}</Typography>
+          <FlagIcon fontSize="small" />
+        </Box>
         <Box ml={2}>
           <Typography>{gameEnded && `You ${gameState}!`}</Typography>
         </Box>
